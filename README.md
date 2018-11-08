@@ -3,11 +3,21 @@ Doctrine Fixtures Extension for Behat
 
 The extension increases feature test isolation by reloading ORM data fixtures between scenarios and features.
 
+**Works with `symfony^4` & `doctrine/doctrine-fixtures-bundle^3`.**
+
 # Installation
 
 ```sh
 composer require "behat-extension/doctrine-data-fixtures-extension"
 ```
+
+```php
+<?php # config/bundles.php
+return [
+    \BehatExtension\DoctrineDataFixturesExtension\Bundle\BehatDoctrineDataFixturesExtensionBundle::class => ['test' => true],
+];
+```
+**@todo** : flex recipe ?
 
 # Configuration
 
@@ -20,38 +30,13 @@ default:
   extensions:
     BehatExtension\DoctrineDataFixturesExtension\Extension:
       lifetime:    'feature'
-      directories: ~
-      fixtures:    ~
 ```
 
 When **lifetime** is set to "feature" (or unspecified), data fixtures are reloaded between feature files.  Alternately,
 when **lifetime** is set to "scenario", data fixtures are reloaded between scenarios (i.e., increased
 test isolation at the expense of increased run time).
 
-When **fixtures** is set, the extension will load the specified fixture classes.
-This must contain a list of fully qualified class names. Classes MUST not have any constructor arguments (or at least optional).
-If the interface `Symfony\Component\DependencyInjection\ContainerAwareInterface` is implemented, the container is set to the fixture loader.
-
-When **directories** is set, the extension will load the data fixtures globed from the respective directories.
-Classes MUST not have any constructor arguments (or at least optional).
-If the interface `Symfony\Component\DependencyInjection\ContainerAwareInterface` is implemented, the container is set to the fixture loader.
-
-This extension will also load every fixtures declared as services and tagged with `doctrine.fixture.orm`.
-
-```yaml
-# behat.yml
-default:
-  # ...
-  extensions:
-    BehatExtension\DoctrineDataFixturesExtension\Extension:
-      lifetime: 'feature'
-      directories:
-        - '/project/src/AcmeAnalytics/Tests/DataFixtures/ORM'
-      fixtures:
-        - 'Acme\StoreBundle\DataFixture\ORM\Categories'
-        - 'Acme\StoreBundle\DataFixture\ORM\Apps'
-        - 'Acme\VendorBundle\DataFixture\ORM\Vendors'
-```
+This extension will load every fixtures declared as services and tagged with `doctrine.fixture.orm`.
 
 # Backup System
 

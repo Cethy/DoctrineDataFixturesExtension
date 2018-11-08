@@ -54,12 +54,14 @@ final class Extension implements ExtensionInterface
                     ->defaultTrue()
                 ->end()
                 ->arrayNode('directories')
+                    ->setDeprecated('This option has no effect anymore. Please declare your fixtures as services and tagged with "doctrine.fixture.orm".')
                     ->defaultValue([])
                     ->treatFalseLike([])
                     ->treatNullLike([])
                     ->scalarPrototype()->cannotBeEmpty()->end()
                 ->end()
                 ->arrayNode('fixtures')
+                    ->setDeprecated('This option has no effect anymore. Please declare your fixtures as services and tagged with "doctrine.fixture.orm".')
                     ->defaultValue([])
                     ->treatFalseLike([])
                     ->treatNullLike([])
@@ -85,7 +87,7 @@ final class Extension implements ExtensionInterface
             $loader->load('backup.php');
         }
 
-        $keys = ['lifetime', 'autoload', 'fixtures', 'directories'];
+        $keys = ['lifetime', 'autoload'];
         foreach ($keys as $key) {
             $container->setParameter('behat.doctrine_data_fixtures.'.$key, $config[$key]);
         }

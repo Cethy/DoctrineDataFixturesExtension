@@ -26,10 +26,10 @@ return function (ContainerConfigurator $container) {
     $container->load(
         'BehatExtension\\DoctrineDataFixturesExtension\\Tests\\DemoBundle\\Tests\\DataFixtures\\',
         __DIR__.'/../../Tests/DataFixtures/*'
-    )->private();
+    )->tag('doctrine.fixture.orm')->private();
     $container->load(
         'BehatExtension\\DoctrineDataFixturesExtension\\Tests\\DemoBundle\\DataFixtures\\ORM\\',
         __DIR__.'/../../DataFixtures/ORM/*'
-    )->private();
-    $container->set(IsolatedProductLoader::class)->private();
+    )->tag('doctrine.fixture.orm')->private();
+    $container->set(IsolatedProductLoader::class)->tag('doctrine.fixture.orm')->private();
 };
